@@ -81,7 +81,19 @@ function initChart(chart, data_) {
         x: {
           type: 'linear',
           position: 'bottom'
-        }
+        },
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Weight (kg)'
+          }
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Height (m)'
+          }
+        }]
       }
     }
   };
@@ -111,6 +123,23 @@ async function getData(param) {
   });
   let json = await data.json();
   return json;
+}
+
+function injectHTML(data) {
+  let heightTotal = 0;
+  let weightTotal = 0;
+  for (let i = 0; i < data[0].length; i++) {
+    
+    heightTotal += parseFloat(data[0][i])
+    weightTotal += parseFloat(data[1][i])
+  }
+
+  let AveWeight = weightTotal / parseFloat(data[0].length);
+  let AveHeight = heightTotal / parseFloat(data[0].length);
+
+  const htmlWrapper = document.querySelector('#wrapper');
+  const htmlTemplate = 'Average height: ' + AveHeight.toFixed(2) +' (m) || Average weight ' + AveWeight.toFixed(2) + " (kg)" ;
+  htmlWrapper.innerHTML = htmlTemplate;
 }
 
 
@@ -185,6 +214,7 @@ async function mainEvent() {
     const x_and_y = createArrays(dataManipulated);
     const cleanValues = removeNullValues(x_and_y);
     const test = scatterPoints(cleanValues);
+    injectHTML(cleanValues)
     submitEvent.preventDefault();
     initChart(chartTarget, test);
   });
