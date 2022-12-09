@@ -125,7 +125,7 @@ async function getData(param) {
   return json;
 }
 
-function injectHTML(data) {
+function injectHTML(data, teamnum) {
   let heightTotal = 0;
   let weightTotal = 0;
   for (let i = 0; i < data[0].length; i++) {
@@ -138,7 +138,7 @@ function injectHTML(data) {
   let AveHeight = heightTotal / parseFloat(data[0].length);
 
   const htmlWrapper = document.querySelector('#wrapper');
-  const htmlTemplate = 'Average height: ' + AveHeight.toFixed(2) +' (m) || Average weight ' + AveWeight.toFixed(2) + " (kg)" ;
+  const htmlTemplate = 'Team ' + teamnum + ' - Average height: ' + AveHeight.toFixed(2) +' (m) || Average weight ' + AveWeight.toFixed(2) + " (kg)" ;
   htmlWrapper.innerHTML = htmlTemplate;
 }
 
@@ -214,7 +214,7 @@ async function mainEvent() {
     const x_and_y = createArrays(dataManipulated);
     const cleanValues = removeNullValues(x_and_y);
     const test = scatterPoints(cleanValues);
-    injectHTML(cleanValues)
+    injectHTML(cleanValues, x)
     submitEvent.preventDefault();
     initChart(chartTarget, test);
   });
