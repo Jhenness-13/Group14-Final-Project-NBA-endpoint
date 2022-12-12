@@ -7,7 +7,7 @@ Final project repository for group 14 - Jack Hennessey and Michael Cocita
 
 **API Used**
 
-The api used for this code is the NBA api from: https://rapidapi.com/api-sports/api/api-nba
+The api used for this code is the NBA api from: https://rapidapi.com/api-sports/api/api-nba.
 Our visualization, using Chart.js, shows the data points of each player's height and weight from a specifed team.
 
 **CSS frameworks**
